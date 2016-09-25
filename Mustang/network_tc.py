@@ -20,8 +20,9 @@ def task(mode, cmd_list):
                         tmp = 'ON'
                     else:
                         tmp = 'OFF'
-                    result = raw_input('Tc rule {: >4}.Plz press Enter to continue...'.format(tmp))
-                    # exit program graceful
+                    result = raw_input(
+                        'Tc rule {: >4}.Plz press Enter to continue...'.format(tmp))
+                    # exit program graceful if any input
                     if result:
                         return
                 else:
@@ -35,8 +36,16 @@ def task(mode, cmd_list):
 def get_arg():
     args_list = []
     parse = argparse.ArgumentParser()
-    parse.add_argument('-m', '--mode', help='Set script excute mode 1:automatic, 2:manual, default is automatic', type=int, default=1)
-    parse.add_argument('-c', '--config', help='Set where config file read from tcConfig.yaml', type=str, default='tcConfig.yaml')
+    parse.add_argument(
+        '-m', '--mode',
+        help='Set script excute mode 1:automatic, 2:manual, \
+        default is automatic',
+        type=int, default=1)
+    parse.add_argument(
+        '-c', '--config',
+        help='Set where config file read from tcConfig.yaml',
+        type=str,
+        default='tcConfig.yaml')
     args = parse.parse_args()
     args_list.append(args.mode)
     args_list.append(args.config)
