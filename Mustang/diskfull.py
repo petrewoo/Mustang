@@ -28,12 +28,8 @@ def get_args():
         '-c', dest='count',
         help='Set the size of diskfull file, default is 500G',
         type=int, default=500)
-    args = parser.parse_args()
+    return vars(parser.parse_args())
 
-    args_dict = {}
-    args_dict['dest'] = args.dest
-    args_dict['count'] = args.count
-    return args_dict
 
 if __name__ == '__main__':
-    main(get_args())
+    main(**get_args())

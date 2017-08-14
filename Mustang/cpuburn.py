@@ -1,21 +1,23 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-import time
 import argparse
+import multiprocessing as mp
 import os
 import signal
-import multiprocessing as mp
+import time
+
 from subprocess import Popen
 
 
 class InterruptLoop(Exception):
-    pass
+    """Interrupt internal loop"""
 
 
 def task(interval):
 
     def handler(signum, frame):
+        """Use KeyboardInterrupt as singal from outside"""
         raise KeyboardInterrupt
 
     def alarm_handler(signum, frame):
@@ -85,26 +87,21 @@ def main(minute, interval):
 
 
 def get_args():
-    parse = argparse.ArgumentParser('Cpu burn maker')
-    parse.add_argument(
-        '-d', dest='duration', help='Set duration(minute) which greater than \
-        or equal to zero, default value is zero which means infinity loop',
-        type=float, default=0)
-    parse.add_argument(
-        '-i', dest='interval', help='Set interval(second) which greater than \
-        or equal to zero, default value is zero which means no interval',
-        type=int, default=0)
-    args = parse.parse_args()
+    parser = argparse.ArgumentParser('Cpu burn maker')
+    parser.add_argument(
+        '-d', dest='duration',
+        help='Set duration(minute) which greater than or equal to zero, \
+              default value is zero which means infinity loop',
+        type=float,
+        default=0)
+    parser.add_argument(
+        '-i', dest='interval',
+        help='Set interval(second) which greater than or equal to zero, \
+              default value is zero which means no interval',
+        type=int,
+        default=0)
+    return vars(parser.parse_args())
 
-    # check arguments
-    assert args.duration >= 0 and args.interval >=0, \
-        'Plz check threshold of arguments'
-
-    arg_list = []
-    arg_list.append(args.duration)
-    arg_list.append(args.interval)
-    return arg_list
 
 if __name__ == '__main__':
-    args = get_args()
-    main(*args)
+    main(**get_args())

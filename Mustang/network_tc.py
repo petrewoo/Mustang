@@ -73,6 +73,7 @@ def main(mode, config_file):
     cmd_list = _cmd_list_constructor(path, config_file)
     task(mode, cmd_list)
 
+
 if __name__ == '__main__':
     args = get_arg()
     main(*args)

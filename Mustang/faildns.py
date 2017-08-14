@@ -37,5 +37,6 @@ def get_arg():
     args = parse.parse_args()
     return args.mode
 
+
 if __name__ == '__main__':
     main(get_arg())
