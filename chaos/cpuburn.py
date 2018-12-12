@@ -55,9 +55,10 @@ def task(interval):
                 print('{}: {}'.format(p_name, e))
 
 
-def main(minute, interval):
+def main(duration, interval):
     p_list = []
-    duration = minute * 60
+    # convert unit of time from minute to second
+    duration = duration * 60
     delay = 0.005
 
     for _ in range(mp.cpu_count()):
